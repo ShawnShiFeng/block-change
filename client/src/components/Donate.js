@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Dialog, TextField, FlatButton } from 'material-ui';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addProjects } from '../actions';
+import { addProjects, setBalance, setProjectBalance, toggleDonate } from '../actions';
 
 class Donate extends Component {
   constructor(props) {
@@ -28,9 +28,15 @@ class Donate extends Component {
   }
 
   sendDonation() {
-    if (this.props.balance < this.state.amount) {
+    const amount = parseInt(this.state.amount);
+    if (this.props.balance === undefined) {
+      alert('Please login before making a donation');
+    } else if (this.props.balance < amount) {
       alert('Donation exceeds balance.');
     } else {
+      this.props.setBalance(this.props.balance - amount);
+      this.props.setProjectBalance(this.props.projectBalance + amount);
+      this.props.toggleDonate();
       const params = {
         profile_id: this.props.currentUser.currentUserId,
         fromAddress: this.props.userWallet,
@@ -39,7 +45,7 @@ class Donate extends Component {
         project_id: this.props.project.id
       };
       axios.post('/projects/sendTransaction', params)
-      .then((res) => { console.log(res.data); })
+      .then((res) => { console.log(res.data); this.props.getDonations(this.props.project.id); })
       .catch((err) => { console.log(err); });
     }
   }
@@ -83,4 +89,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Donate);
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    setBalance, setProjectBalance, toggleDonate,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(Donate);
