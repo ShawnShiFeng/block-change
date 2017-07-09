@@ -81,6 +81,7 @@ class Landing extends Component {
       console.log('debit: ', this.props.currentUser.currentUserDebit);
     })
     .catch( err => {
+      alert('Username or password incorrect, please try again.');
       console.error(`failed to validate login info: ${err}`);
       this.props.userLogout();
     });
@@ -112,6 +113,7 @@ class Landing extends Component {
       this.props.resetUser();
     })
     .catch( err => {
+      alert('Email name already exist, please try again.');
       console.error(err);
       this.props.userLogout();
     })
@@ -158,6 +160,7 @@ class Landing extends Component {
         onTouchTap={this.closePopups}
       />,
     ];
+
     return (
       <div>
         <Header
