@@ -28,7 +28,9 @@ class Donate extends Component {
   }
 
   sendDonation() {
-    if (this.props.balance < this.state.amount) {
+    if (this.props.balance === undefined) {
+      alert('Please login before making a donation');
+    } else if (this.props.balance < this.state.amount) {
       alert('Donation exceeds balance.');
     } else {
       const params = {
