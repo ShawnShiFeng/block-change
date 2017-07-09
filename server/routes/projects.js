@@ -48,11 +48,11 @@ router.route('/getBalance/:address')
 router.route('/sendTransaction')
 .post((req, res) => {
   return new Promise((resolve, reject) => {
-    console.log(req.body, 'req.body');
     const { amount, fromAddress, toAddress } = req.body;
     resolve(helpers.sendTransaction(amount, fromAddress, toAddress));
   })
   .then((data) => {
+    models.Donation.forge({ project_id: req.body.project_id, profile_id: req.body.profile_id, txhash: data }).save()
     res.status(200).send({ txHash: data });
   })
   .catch((err) => { console.log(err); });

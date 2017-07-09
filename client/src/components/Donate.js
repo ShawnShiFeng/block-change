@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Dialog, TextField, FlatButton } from 'material-ui';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addProjects } from '../actions';
 
 class Donate extends Component {
   constructor(props) {
@@ -29,9 +32,11 @@ class Donate extends Component {
       alert('Donation exceeds balance.');
     } else {
       const params = {
+        profile_id: this.props.currentUser.currentUserId,
         fromAddress: this.props.userWallet,
         toAddress: this.props.project.project_wallet,
         amount: this.state.amount,
+        project_id: this.props.project.id
       };
       axios.post('/projects/sendTransaction', params)
       .then((res) => { console.log(res.data); })
@@ -70,4 +75,12 @@ class Donate extends Component {
   }
 }
 
-export default Donate;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    projects: state.main.projects,
+    currentUser: state.profile,
+  };
+};
+
+export default connect(mapStateToProps)(Donate);
