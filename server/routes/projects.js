@@ -13,13 +13,20 @@ router.route('/create')
   models.Wallets.where({profile_id: -1}).fetch()
   .then(wallet => {
     req.body.project_wallet = wallet.attributes.wallet_address;
-    wallet.set({profile_id: req.body.profile_id}).save();
-    models.Project.forge(req.body).save()
-    .then((project) => {
-      res.status(201).send(project.serialize());
+    wallet.set({profile_id: req.body.profile_id}).save()
+    .then(() => {
+      console.log('req.body: insert project: ', req.body);
+      models.Project.forge(req.body).save()
+      .then((project) => {
+        res.status(201).send(project.serialize());
+      })
+      .catch((err) => {
+        console.log(err)
+        res.sendStatus(500);
+      });
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(err => {
+      console.error(err);
       res.sendStatus(500);
     });
   });
