@@ -28,13 +28,14 @@ class Donate extends Component {
   }
 
   sendDonation() {
+    const amount = parseInt(this.state.amount);
     if (this.props.balance === undefined) {
       alert('Please login before making a donation');
-    } else if (this.props.balance < this.state.amount) {
+    } else if (this.props.balance < amount) {
       alert('Donation exceeds balance.');
     } else {
-      this.props.setBalance(this.props.balance - this.state.amount);
-      this.props.setProjectBalance(this.props.projectBalance + this.state.amount);
+      this.props.setBalance(this.props.balance - amount);
+      this.props.setProjectBalance(this.props.projectBalance + amount);
       this.props.toggleDonate();
       const params = {
         profile_id: this.props.currentUser.currentUserId,
