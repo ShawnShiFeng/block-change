@@ -1,9 +1,9 @@
 # Block Change
 - a full stack crowdfunding app for humanitarian causes that is built on the blockchain with an actual test ethereum blockchain
 
-![Alt text](/public/main-page.png?raw=true "Main Page" =720x450)
+![Alt text](/public/main-page.png =720x450?raw=true "Main Page")
 
-![Alt text](/public/donation-page.png?raw=true "Donation Page" =720x450)
+![Alt text](/public/donation-page.png =720x450?raw=true "Donation Page")
 
 ### Tech Stack
 - React, Redux, Node, Express, Ethereum util libraries, PostgresSQL
