@@ -1,14 +1,14 @@
 # Block Change
 - a full stack crowdfunding app for humanitarian causes that is built on the blockchain with an actual test ethereum blockchain
 
-![Alt text](/public/main-page.png?raw=true "Main Page")
+![Alt text](/public/main-page.png?raw=true "Main Page" =720x450)
 
-![Alt text](/public/donation-page.png?raw=true "Donation Page")
+![Alt text](/public/donation-page.png?raw=true "Donation Page" =720x450)
 
 ### Tech Stack
 - React, Redux, Node, Express, Ethereum util libraries, PostgresSQL
 
-## Team Members
+### Team Members
 - Ming Feng, Shawn Feng, Carlo Las Marias, Karel Luwena, Yvonne Zhang
 
 ## Install
